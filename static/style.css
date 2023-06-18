@@ -1,6 +1,28 @@
-body{
-    background-color: aquamarine;
+:root {
+    --primary-color: #654321; /* Deep Brown */
+    --accent-color: #FFBF00; /* Amber */
+    --background-color: #ECE6DE; /* Earthy Tones */
+    --highlight-color: #9C3326; /* Rich Reds */
+    --text-color: #333333; /* Dark Charcoal */
+    --navbar-background-color: #654321; /* Deep Brown */
+    --navbar-text-color: #FFFFFF; /* White */
 }
-.navbar{
-    background-color: white;
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
+
+.navbar {
+    background-color: var(--navbar-background-color);
+    padding: 0 0 0.3rem 0;
+}
+
+.navbar a{
+    color: var(--navbar-text-color);
+}
+
+/*.dropdown-menu{*/
+/*    color: black;*/
+/*}*/
+
