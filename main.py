@@ -42,9 +42,11 @@ def login():
         return render_template('login.html', title='Log in')
 
 
-@app.route('/signup')
+@app.route('/signup', methods=['POST', 'GET'])
 def signup():
-    return render_template('signup.html')
+    # if request.form = 'POST':
+
+    return render_template('signup.html', title='Sign up')
 
 
 @app.route('/logout')
