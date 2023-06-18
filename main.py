@@ -42,6 +42,11 @@ def login():
         return render_template('login.html', title='Log in')
 
 
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+
 @app.route('/logout')
 def logout():
     session.pop('user')
