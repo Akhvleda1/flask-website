@@ -20,9 +20,6 @@ posts = [
 ]
 
 
-# @app.route('/')
-# def index():
-#     return render_template('Base.html')
 
 @app.route('/')
 @app.route('/home')
