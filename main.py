@@ -20,7 +20,6 @@ posts = [
 ]
 
 
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -30,6 +29,11 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html', title='about')
+
+
+@app.route('/shop')
+def shop():
+    return render_template('shop.html', title='Shop')
 
 
 @app.route('/login', methods=['POST', 'GET'])
