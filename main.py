@@ -82,7 +82,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/user/<email>')
+@app.route('/user/<email>]')
 def user(email):
     if "user" in session:
         return render_template('user.html', email=email)
@@ -90,9 +90,9 @@ def user(email):
         return redirect(url_for('login'))
 
 
-@app.route('/profile/<email>')
-def profile(email):
-    user_email = request.form['email']
+@app.route('/profile')
+def profile():
+    user_email = request.args.get('email')
     return render_template('profile.html', email=user_email)
 
 
