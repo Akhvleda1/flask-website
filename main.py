@@ -90,5 +90,11 @@ def user(email):
         return redirect(url_for('login'))
 
 
+@app.route('/profile/<email>')
+def profile(email):
+    user_email = request.form['email']
+    return render_template('profile.html', email=user_email)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

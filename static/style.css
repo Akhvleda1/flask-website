@@ -20,8 +20,8 @@ body {
 .navbar-search-button{
     border: none;
     border-radius: 7px;
-    font-size: 13px;
-    color: white;
+    font-weight: bold;
+    color: var(--navbar-color);
     background-color: hsl(32, 17%, 69%);
 }
 
