@@ -10,12 +10,19 @@
 
 body {
     background-color: var(--background-color);
-    /*color: var(--text-color);*/
 }
 
 .navbar {
     background-color: var(--navbar-color);
     padding: 0 0 0.3rem 0;
+}
+
+.navbar-search-button{
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    color: white;
+    background-color: hsl(32, 17%, 69%);
 }
 
 
@@ -24,8 +31,6 @@ body {
 .nav-link{
     color: var(--navbar-text-color);
 }
-
-
 
 
 
