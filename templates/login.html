@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
-    <form method="post" style="width: 25%">
+    <form method="post" style="width: 25%" class="mt-5">
         <h1 style="text-align: center">Log in</h1>
         <div class="form-group">
             <input type="email" name="email" class="form-control mt-4 mb-3" placeholder="Enter an email">
@@ -16,7 +16,17 @@
             Dont have an account?
             <a href="/signup">Sign up</a>
         </div>
+        <div class="form-text mb-0">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        <p style="color: red">{{msg}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
     </form>
+
 </div>
 
 {% endblock content %}
