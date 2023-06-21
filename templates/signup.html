@@ -5,7 +5,7 @@
     <form method="post" style="width: 25%">
         <h1 style="text-align: center">Sign up</h1>
         <div class="form-group">
-            <input type="text" name="name" class="form-control mt-4 mb-3" placeholder="username">
+            <input type="text" name="username" class="form-control mt-4 mb-3" placeholder="username">
         </div>
         <div class="form-group">
             <input type="email" name="email" class="form-control mb-3" placeholder="email">
@@ -17,6 +17,15 @@
         <div class="form-text">
             Already have an account?
             <a href="/login">Log in</a>
+        </div>
+        <div class="form-text mb-0">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        <p style="color: red">{{msg}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
     </form>
 </div>
