@@ -23,7 +23,7 @@ with app.app_context():
 
 cards = [
     {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+        'image': 'https://img.thewhiskyexchange.com/900/irish_gre9.jpg',
         'title': 'Card 1',
         'price': '$40.00 - $80.00',
     },
