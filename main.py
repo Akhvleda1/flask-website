@@ -12,18 +12,14 @@ db = SQLAlchemy(app)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String)
-    email = db.Column(db.String)
+    phone = db.Column(db.Integer, unique=True)
+    email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
 
 
 with app.app_context():
+    # db.drop_all()
     db.create_all()
-    # user1 = User(username='levani', email='levani@gmail.com', password='password')
-    # db.session.add(user1)
-    # db.session.commit()
-    # allnames = User.query.all()
-    # for each in allnames:
-    #     print(each.username)
 
 cards = [
     {
@@ -70,8 +66,6 @@ cards = [
 ]
 
 
-
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -102,11 +96,11 @@ def login():
                 session['user'] = user_email
                 return redirect(url_for('home'))
             else:
-                return 'paroli arasworia'
+                flash("Password is incorrect")
+                return redirect(url_for('login'))
         else:
-            return 'user ar aris'
-
-        # return redirect(url_for('home'))
+            flash("User does not exist")
+            return redirect(url_for('login'))
     else:
         return render_template('login.html', title='Log in')
 
@@ -116,12 +110,21 @@ def signup():
     if request.method == "POST":
         username = request.form['username']
         user_email = request.form['email']
+        phone = request.form['phone']
         password = request.form['password']
-        if username == '' or user_email == '' or password == '':
+        hashed_password = generate_password_hash(password)
+        if username == '' or user_email == '' or phone == '' or password == '':
             flash('Please fill in all the required fields.')
             return redirect(url_for('signup'))
-        session['user'] = user_email
-        return redirect(url_for('home'))
+        elif not phone.isdecimal():
+            flash('Phone must be a number')
+            return redirect(url_for('signup'))
+        else:
+            new_user = User(username=username, email=user_email, phone=phone, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            session['user'] = user_email
+            return redirect(url_for('home'))
     else:
         return render_template('signup.html', title='Sign up')
 
@@ -134,11 +137,15 @@ def logout():
 
 @app.route('/profile')
 def profile():
-    user_email = session.get('user')
-    if 'user' in session:
-        return render_template('profile.html', email=user_email)
-    else:
-        return redirect(url_for('login'))
+    # user_email = session.get('user')
+    # if 'user' in session:
+    #     return render_template('profile.html', email=user_email)
+    # else:
+    #     return redirect(url_for('login'))
+
+    user_email = session['user']
+    user = User.query.filter_by(email=user_email).first()
+    return render_template('profile.html', user=user)
 
 
 if __name__ == '__main__':
