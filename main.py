@@ -8,50 +8,22 @@ app.secret_key = 'secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_db.sqlite'
 
 db = SQLAlchemy(app)
+
 conn = sqlite3.connect("whiskeys.db")
 cursor = conn.cursor()
 
-rows = cursor.execute("SELECT * FROM whiskeys")
-rows = cursor.fetchall()
+rows = cursor.execute("SELECT * FROM whiskeys").fetchall()
 
-nums = []
 cards = []
-names = []
-prices = []
-links = []
-abouts = []
-
 for row in rows:
-    num = row[0]
-    nums.append(num)
-
-for row in rows:
-    name = row[1]
-    names.append(name)
-
-for row in rows:
-    price = row[2]
-    prices.append(price)
-
-for row in rows:
-    link = row[3]
-    links.append(link)
-
-for row in rows:
-    about = row[4]
-    abouts.append(about)
-
-x = 0
-while x <= 51:
     card = {
-        'id': nums[x],
-        'name': names[x],
-        'image': links[x],
-        'price': prices[x],
-        'about': abouts[x]
+        'id': row[0],
+        'name': row[1],
+        'price': row[2],
+        'image': row[3],
+        'about': row[4]
     }
     cards.append(card)
-    x += 1
 
 
 class User(db.Model):
@@ -127,7 +99,6 @@ def home():
 
 @app.route('/about/item_id=<int:item_id>')
 def about_item(item_id):
-    # Retrieve the item based on the provided ID
     item = next((card for card in cards if card['id'] == item_id), None)
     if item:
         return render_template('about.html', title='About Item', item=item)
@@ -195,12 +166,6 @@ def logout():
 
 @app.route('/profile')
 def profile():
-    # user_email = session.get('user')
-    # if 'user' in session:
-    #     return render_template('profile.html', email=user_email)
-    # else:
-    #     return redirect(url_for('login'))
-
     user_email = session['user']
     user = User.query.filter_by(email=user_email).first()
     return render_template('profile.html', user=user)
