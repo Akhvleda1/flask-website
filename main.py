@@ -1,12 +1,57 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_db.sqlite'
 
 db = SQLAlchemy(app)
+conn = sqlite3.connect("whiskeys.db")
+cursor = conn.cursor()
+
+rows = cursor.execute("SELECT * FROM whiskeys")
+rows = cursor.fetchall()
+
+nums = []
+cards = []
+names = []
+prices = []
+links = []
+abouts = []
+
+for row in rows:
+    num = row[0]
+    nums.append(num)
+
+for row in rows:
+    name = row[1]
+    names.append(name)
+
+for row in rows:
+    price = row[2]
+    prices.append(price)
+
+for row in rows:
+    link = row[3]
+    links.append(link)
+
+for row in rows:
+    about = row[4]
+    abouts.append(about)
+
+x = 0
+while x <= 51:
+    card = {
+        'id': nums[x],
+        'name': names[x],
+        'image': links[x],
+        'price': prices[x],
+        'about': abouts[x]
+    }
+    cards.append(card)
+    x += 1
 
 
 class User(db.Model):
@@ -21,49 +66,57 @@ with app.app_context():
     # db.drop_all()
     db.create_all()
 
-cards = [
-    {
-        'image': 'https://img.thewhiskyexchange.com/900/irish_gre9.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    {
-        'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-        'title': 'Card 1',
-        'price': '$40.00 - $80.00',
-    },
-    # Add more card objects as needed
-]
+# cards = [
+#     {
+#         'id': 1,
+#         'image': 'https://img.thewhiskyexchange.com/900/irish_gre9.jpg',
+#         'title': 'Card 1',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 2,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 2',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 3,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 3',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 4,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 4',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 5,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 5',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 6,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 6',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 7,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 7',
+#         'price': '$40.00 - $80.00',
+#     },
+#     {
+#         'id': 8,
+#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
+#         'title': 'Card 8',
+#         'price': '$40.00 - $80.00',
+#     },
+#     # Add more card objects as needed
+# ]
 
 
 @app.route('/')
@@ -72,9 +125,14 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/about')
-def about():
-    return render_template('about.html', title='about')
+@app.route('/about/item_id=<int:item_id>')
+def about_item(item_id):
+    # Retrieve the item based on the provided ID
+    item = next((card for card in cards if card['id'] == item_id), None)
+    if item:
+        return render_template('about.html', title='About Item', item=item)
+    else:
+        return redirect(url_for('shop'))
 
 
 @app.route('/shop')
