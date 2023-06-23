@@ -1,6 +1,40 @@
-body{
-    background-color: aquamarine;
+:root {
+    --primary-color: hsl(30, 50%, 25%); /* Deep Brown */
+    --accent-color: hsl(45, 100%, 50%); /* Amber */
+    --background-color: hsl(35, 30%, 90%); /* Earthy Tones */
+    --highlight-color: hsl(10, 60%, 35%); /* Rich Reds */
+    --text-color: hsl(0, 0%, 20%); /* Dark Charcoal */
+    --navbar-color: #333333; /* Deep Brown */
+    --navbar-text-color: hsl(0, 0%, 90%); /* Light Text Color */
 }
-.navbar{
-    background-color: white;
+
+body {
+    background-color: var(--background-color);
 }
+a{
+    text-decoration: none;
+    color: #171616;
+}
+
+.navbar {
+    background-color: var(--navbar-color);
+    padding: 0.5rem 0 0.5rem 0;
+}
+
+.navbar-search-button{
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    color: var(--navbar-color);
+    background-color: hsl(32, 17%, 69%);
+}
+
+
+.nav-link:focus,
+.nav-link:hover,
+.nav-link{
+    color: var(--navbar-text-color);
+}
+
+
+
