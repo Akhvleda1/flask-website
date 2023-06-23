@@ -4,7 +4,7 @@
     --background-color: hsl(35, 30%, 90%); /* Earthy Tones */
     --highlight-color: hsl(10, 60%, 35%); /* Rich Reds */
     --text-color: hsl(0, 0%, 20%); /* Dark Charcoal */
-    --navbar-color: hsl(30, 70%, 30%); /* Deep Brown */
+    --navbar-color: #333333; /* Deep Brown */
     --navbar-text-color: hsl(0, 0%, 90%); /* Light Text Color */
 }
 
@@ -18,7 +18,7 @@ a{
 
 .navbar {
     background-color: var(--navbar-color);
-    padding: 0 0 0.3rem 0;
+    padding: 0.5rem 0 0.5rem 0;
 }
 
 .navbar-search-button{

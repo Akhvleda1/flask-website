@@ -38,58 +38,6 @@ with app.app_context():
     # db.drop_all()
     db.create_all()
 
-# cards = [
-#     {
-#         'id': 1,
-#         'image': 'https://img.thewhiskyexchange.com/900/irish_gre9.jpg',
-#         'title': 'Card 1',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 2,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 2',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 3,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 3',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 4,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 4',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 5,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 5',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 6,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 6',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 7,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 7',
-#         'price': '$40.00 - $80.00',
-#     },
-#     {
-#         'id': 8,
-#         'image': 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg',
-#         'title': 'Card 8',
-#         'price': '$40.00 - $80.00',
-#     },
-#     # Add more card objects as needed
-# ]
-
 
 @app.route('/')
 @app.route('/home')
