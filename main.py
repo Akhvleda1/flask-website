@@ -37,6 +37,9 @@ class User(db.Model):
 with app.app_context():
     # db.drop_all()
     db.create_all()
+    # user = User.query.get(1)
+    # db.session.delete(user)
+    # db.session.commit()
 
 
 @app.route('/')
@@ -120,4 +123,4 @@ def profile():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
