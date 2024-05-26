@@ -21,6 +21,10 @@ a{
     padding: 0.5rem 0 0.5rem 0;
 }
 
+a{
+    text-decoration: none;
+}
+
 .navbar-search-button{
     border: none;
     border-radius: 7px;

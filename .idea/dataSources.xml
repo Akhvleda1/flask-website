@@ -12,11 +12,11 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="whiskeys" uuid="a07cee25-9e67-47f1-b660-8446f8cff8b0">
+    <data-source source="LOCAL" name="whiskeys" uuid="c5b551e7-36cf-4cf8-a763-ec2b08d9b238">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Desktop\Luka\PyCharmProjects\flaskwebsite\whiskeys.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\Desktop\Luka\PyCharmProjects\flaskwebsite\instance\whiskeys.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

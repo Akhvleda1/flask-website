@@ -1,29 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import sqlite3
+from data_scraper import whiskey_data
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user_db.sqlite'
+app.config['SQLALCHEMY_BINDS'] = {'whiskeys': 'sqlite:///whiskeys.sqlite'}
 
 db = SQLAlchemy(app)
-
-conn = sqlite3.connect("whiskeys.db")
-cursor = conn.cursor()
-
-rows = cursor.execute("SELECT * FROM whiskeys").fetchall()
-
-cards = []
-for row in rows:
-    card = {
-        'id': row[0],
-        'name': row[1],
-        'price': row[2],
-        'image': row[3],
-        'about': row[4]
-    }
-    cards.append(card)
 
 
 class User(db.Model):
@@ -33,6 +18,23 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
 
+    def __str__(self):
+        return f"id: {self.id}; username: {self.username}; phone: {self.phone}; email: {self.email}"
+
+
+class Whiskeys(db.Model):
+    __bind_key__ = 'whiskeys'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String)
+    alc_percentage = db.Column(db.String)
+    price = db.Column(db.Integer)
+    image_link = db.Column(db.String)
+
+    def __str__(self):
+        return f"id: {self.id}; name: {self.name}; alc_per: {self.alc_percentage}; price: {self.price}"
+
+
+cards = whiskey_data()
 
 with app.app_context():
     # db.drop_all()
@@ -40,6 +42,7 @@ with app.app_context():
     # user = User.query.get(1)
     # db.session.delete(user)
     # db.session.commit()
+
 
 
 @app.route('/')
