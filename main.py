@@ -34,8 +34,6 @@ class Whiskeys(db.Model):
         return f"id: {self.id}; name: {self.name}; alc_per: {self.alc_percentage}; price: {self.price}"
 
 
-cards = whiskey_data()
-
 with app.app_context():
     # db.drop_all()
     db.create_all()
@@ -43,6 +41,7 @@ with app.app_context():
     # db.session.delete(user)
     # db.session.commit()
 
+cards = whiskey_data()
 
 
 @app.route('/')
@@ -96,11 +95,15 @@ def signup():
         phone = request.form['phone']
         password = request.form['password']
         hashed_password = generate_password_hash(password)
+        check_box = request.form.get('checkbox')
         if username == '' or user_email == '' or phone == '' or password == '':
             flash('Please fill in all the required fields.')
             return redirect(url_for('signup'))
         elif not phone.isdecimal():
             flash('Phone must be a number')
+            return redirect(url_for('signup'))
+        elif check_box is None:
+            flash('You must agree to the Terms of Service')
             return redirect(url_for('signup'))
         else:
             new_user = User(username=username, email=user_email, phone=phone, password=hashed_password)
@@ -126,4 +129,4 @@ def profile():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
