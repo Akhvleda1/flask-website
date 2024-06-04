@@ -1,10 +1,13 @@
 from flask import Flask
 from database.database import db
+from datetime import timedelta
 
 
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'secretkey'
+    app.config['SESSION_PERMANENT'] = False
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///user_db.sqlite'
     app.config['SQLALCHEMY_BINDS'] = {'whiskeys': f'sqlite:///whiskeys.sqlite'}
 
