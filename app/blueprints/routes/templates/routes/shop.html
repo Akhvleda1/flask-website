@@ -9,14 +9,14 @@
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <a href="{{ url_for('about_item', item_id=card.id) }}">
+                    <a href="{{ url_for('routes.about_item', item_id=card.id) }}">
                         <img class="card-img-top" src="{{ card.image_link }}" alt="..."/>
                     </a>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <a href="{{ url_for('about_item', item_id=card.id) }}">
+                            <a href="{{ url_for('routes.about_item', item_id=card.id) }}">
                                 <h5 class="fw-bolder">{{ card.name }}</h5>
                             </a>
                             <h5>{{ card.alc_percentage }}</h5>
@@ -27,7 +27,7 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url_for('about_item', item_id=card.id) }}">Purchase</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ url_for('routes.about_item', item_id=card.id) }}">Purchase</a></div>
                     </div>
                 </div>
             </div>
