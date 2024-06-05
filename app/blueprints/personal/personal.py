@@ -8,6 +8,7 @@ personal = Blueprint('personal', __name__, static_folder='static', template_fold
 
 @personal.route('/profile')
 def profile():
+    session.permanent = False
     user_email = session['user']
     user = User.query.filter_by(email=user_email).first()
     return render_template('personal/profile.html', user=user)
