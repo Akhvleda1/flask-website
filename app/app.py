@@ -1,6 +1,9 @@
 from flask import Flask, session
 from database.database import db
 from datetime import timedelta
+from flask_migrate import Migrate
+
+migrate = Migrate()
 
 
 def create_app():
@@ -11,6 +14,7 @@ def create_app():
     app.config['SQLALCHEMY_BINDS'] = {'whiskeys': f'sqlite:///whiskeys.sqlite'}
 
     db.init_app(app)
+    migrate.init_app(app, db)
 
     with app.app_context():
         db.create_all()
@@ -27,4 +31,5 @@ def create_app():
     app.register_blueprint(core, url_prefix='/')
 
     return app
+
 

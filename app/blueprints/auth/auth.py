@@ -35,25 +35,36 @@ def signup():
     if request.method == "POST":
         username = request.form['username']
         user_email = request.form['email']
-        phone = request.form['phone']
+        user_phone = request.form['phone']
         password = request.form['password']
         hashed_password = generate_password_hash(password)
         check_box = request.form.get('checkbox')
-        if username == '' or user_email == '' or phone == '' or password == '':
+
+        email_exists = User.query.filter_by(email=user_email).first()
+        phone_exists = User.query.filter_by(phone=user_phone).first()
+
+        if email_exists:
+            flash('The email address is already registered')
+            return redirect(url_for('auth.signup'))
+        elif phone_exists:
+            flash('The mobile number is already registered')
+            return redirect(url_for('auth.signup'))
+
+        if username == '' or user_email == '' or user_phone == '' or password == '':
             flash('Please fill in all the required fields.')
             return redirect(url_for('auth.signup'))
-        elif not phone.isdecimal():
+        elif not user_phone.isdecimal():
             flash('Phone must be a number')
             return redirect(url_for('auth.signup'))
         elif check_box is None:
             flash('You must agree to the Terms of Service')
             return redirect(url_for('auth.signup'))
         else:
-            new_user = User(username=username, email=user_email, phone=phone, password=hashed_password)
+            new_user = User(username=username, email=user_email, phone=user_phone, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
             session['user'] = user_email
-            return redirect(url_for('routes.home'))
+            return redirect(url_for('core.home'))
     else:
         return render_template('auth/signup.html', title='Sign up')
 

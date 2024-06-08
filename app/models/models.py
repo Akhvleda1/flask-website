@@ -4,8 +4,9 @@ from database.database import db
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String)
-    phone = db.Column(db.Integer, unique=True)
-    email = db.Column(db.String, unique=True, nullable=False)
+    phone = db.Column(db.String, unique=True, index=True)
+    email = db.Column(db.String, unique=True, nullable=False, index=True)
+    address = db.Column(db.String)
     password = db.Column(db.String)
 
     def __str__(self):
